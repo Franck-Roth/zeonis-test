@@ -27,6 +27,11 @@ class Saison
      */
     private $dateOut;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Club::class, inversedBy="saisons")
+     */
+    private $club;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +57,18 @@ class Saison
     public function setDateOut(\DateTimeInterface $dateOut): self
     {
         $this->dateOut = $dateOut;
+
+        return $this;
+    }
+
+    public function getClub(): ?Club
+    {
+        return $this->club;
+    }
+
+    public function setClub(?Club $club): self
+    {
+        $this->club = $club;
 
         return $this;
     }
