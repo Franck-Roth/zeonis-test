@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PlayerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,16 @@ class Player
      * @ORM\Column(type="integer", nullable=true)
      */
     private $number;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Club::class, mappedBy="player", orphanRemoval=true)
+     */
+    private $clubs;
+
+    public function __construct()
+    {
+        $this->clubs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -69,6 +81,36 @@ class Player
     public function setNumber(?int $number): self
     {
         $this->number = $number;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Club[]
+     */
+    public function getClubs(): Collection
+    {
+        return $this->clubs;
+    }
+
+    public function addClub(Club $club): self
+    {
+        if (!$this->clubs->contains($club)) {
+            $this->clubs[] = $club;
+            $club->setPlayer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClub(Club $club): self
+    {
+        if ($this->clubs->removeElement($club)) {
+            // set the owning side to null (unless already changed)
+            if ($club->getPlayer() === $this) {
+                $club->setPlayer(null);
+            }
+        }
 
         return $this;
     }
