@@ -63,7 +63,7 @@ class ClubController extends AbstractController
      */
     public function edit(Request $request, Club $club): Response
     {
-        $form = $this->createForm(Club1Type::class, $club);
+        $form = $this->createForm(ClubType::class, $club);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
