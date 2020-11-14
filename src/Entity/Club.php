@@ -22,6 +22,12 @@ class Club
      */
     private $name;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="clubs")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $player;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +41,18 @@ class Club
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getPlayer(): ?Player
+    {
+        return $this->player;
+    }
+
+    public function setPlayer(?Player $player): self
+    {
+        $this->player = $player;
 
         return $this;
     }
