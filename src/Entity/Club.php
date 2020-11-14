@@ -24,20 +24,26 @@ class Club
      */
     private $name;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="clubs")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $player;
 
     /**
      * @ORM\OneToMany(targetEntity=Saison::class, mappedBy="club")
      */
     private $saisons;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Player::class, inversedBy="clubs")
+     */
+    private $players;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $logo;
+
     public function __construct()
     {
         $this->saisons = new ArrayCollection();
+        $this->players = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -57,17 +63,6 @@ class Club
         return $this;
     }
 
-    public function getPlayer(): ?Player
-    {
-        return $this->player;
-    }
-
-    public function setPlayer(?Player $player): self
-    {
-        $this->player = $player;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Saison[]
@@ -95,6 +90,42 @@ class Club
                 $saison->setClub(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Player[]
+     */
+    public function getPlayers(): Collection
+    {
+        return $this->players;
+    }
+
+    public function addPlayer(Player $player): self
+    {
+        if (!$this->players->contains($player)) {
+            $this->players[] = $player;
+        }
+
+        return $this;
+    }
+
+    public function removePlayer(Player $player): self
+    {
+        $this->players->removeElement($player);
+
+        return $this;
+    }
+
+    public function getLogo(): ?string
+    {
+        return $this->logo;
+    }
+
+    public function setLogo(?string $logo): self
+    {
+        $this->logo = $logo;
 
         return $this;
     }

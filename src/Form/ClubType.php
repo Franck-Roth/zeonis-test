@@ -13,7 +13,6 @@ class ClubType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('player')
         ;
     }
 

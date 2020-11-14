@@ -35,9 +35,10 @@ class Player
     private $number;
 
     /**
-     * @ORM\OneToMany(targetEntity=Club::class, mappedBy="player", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity=Club::class, mappedBy="players")
      */
     private $clubs;
+
 
     public function __construct()
     {
@@ -85,6 +86,12 @@ class Player
         return $this;
     }
 
+
+    public function __toString(): string
+    {
+        return $this->name . ' ' . $this->firstname;
+    }
+
     /**
      * @return Collection|Club[]
      */
@@ -97,7 +104,7 @@ class Player
     {
         if (!$this->clubs->contains($club)) {
             $this->clubs[] = $club;
-            $club->setPlayer($this);
+            $club->addPlayer($this);
         }
 
         return $this;
@@ -106,17 +113,9 @@ class Player
     public function removeClub(Club $club): self
     {
         if ($this->clubs->removeElement($club)) {
-            // set the owning side to null (unless already changed)
-            if ($club->getPlayer() === $this) {
-                $club->setPlayer(null);
-            }
+            $club->removePlayer($this);
         }
 
         return $this;
-    }
-
-    public function __toString(): string
-    {
-        return $this->name . ' ' . $this->firstname;
     }
 }
