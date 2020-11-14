@@ -35,4 +35,6 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: /club, roles: ROLE_USER }
+        - { path: /player, roles: ROLE_USER }
+        - { path: /saison, roles: ROLE_USER }
