@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Player;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -19,8 +18,11 @@ class ClubFixtures extends Fixture implements DependentFixtureInterface
 
         for ($i = 1; $i <= 20; $i++){
             $club = new Club();
-            $club->setName($faker->colorName);
-            $club->setPlayer($this->getReference('player_'.rand(1,20)));
+            $club->setLogo($faker->imageUrl(150,100));
+            $club->setName($faker->city);
+            for ($y = 1; $y <= 11; $y++){
+                $club->addPlayer($this->getReference('player_'.rand($y, $i)));
+            }
             $manager->persist($club);
         }
 

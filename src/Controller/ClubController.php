@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Club;
+use App\Repository\PlayerRepository;
 use App\Form\ClubType;
 use App\Repository\ClubRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,36 +26,16 @@ class ClubController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/new", name="club_new", methods={"GET","POST"})
-     */
-    public function new(Request $request): Response
-    {
-        $club = new Club();
-        $form = $this->createForm(ClubType::class, $club);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($club);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('club_index');
-        }
-
-        return $this->render('club/new.html.twig', [
-            'club' => $club,
-            'form' => $form->createView(),
-        ]);
-    }
 
     /**
      * @Route("/{id}", name="club_show", methods={"GET"})
      */
-    public function show(Club $club): Response
+    public function show(Club $club, PlayerRepository $playerRepository): Response
     {
         return $this->render('club/show.html.twig', [
             'club' => $club,
+            'players' => $playerRepository,
+
         ]);
     }
 

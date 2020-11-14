@@ -1,22 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Club{% endblock %}
+{% block title %}Club {% endblock %}
 
 {% block body %}
-    <h1>Club</h1>
+    <h1>Club FC {{ club.name }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ club.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ club.name }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="card" style="width: 18rem;">
+        <img src="{{ club.logo }}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">Liste des joueurs</h5>
+            <ul class="list-group">
+                {% for player in club.players %}
+                    <li class="list-group-item">
+                        <a href="{{ path('player_show', {'id': player.id}) }}">{{ player.name }} {{ player.firstname }}</a>
+                        Nr: {{ player.number }}
+                    </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+
 
     <a href="{{ path('club_index') }}">back to list</a>
 
