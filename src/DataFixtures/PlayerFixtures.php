@@ -13,11 +13,11 @@ class PlayerFixtures extends Fixture
     {
         $faker = Faker\Factory::create('fr_FR');
 
-        for ($i = 1; $i <= 20; $i++){
+        for ($i = 1; $i <= 220; $i++){
             $player = new Player();
             $player->setFirstname($faker->firstNameMale);
             $player->setName($faker->lastName);
-            $player->setNumber($faker->numberBetween(1, 20));
+            $player->setNumber($faker->unique()->numberBetween(1, 220));
 
             $manager->persist($player);
             $this->addReference('player_' . $i, $player);

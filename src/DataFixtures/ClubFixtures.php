@@ -20,8 +20,8 @@ class ClubFixtures extends Fixture implements DependentFixtureInterface
             $club = new Club();
             $club->setLogo($faker->imageUrl(150,100));
             $club->setName($faker->city);
-            for ($y = 1; $y <= 11; $y++){
-                $club->addPlayer($this->getReference('player_'.rand($y, $i)));
+            for ($y = 1; $y <= 12; $y++){
+                $club->addPlayer($this->getReference('player_'.rand(1, 220)));
             }
             $manager->persist($club);
         }
