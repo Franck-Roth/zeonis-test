@@ -13,10 +13,6 @@ All you need to run this app on your server.
 When you have cloned this app, you have to run a `composer install` 
 > Take a coffee 
 
-Then you have to run:
-`yarn install`
-> Take a second coffee 
-
 This two past command will download all the packages 
 you need to run the app on your server.
 There are all available in `composer.json` and in `yarn.lock`.
@@ -42,12 +38,19 @@ Shut down your app with `symfony server:stop`
   
 ---
 
+##User
+
+User are created with Fixtrures
+
+for login use;
+-username = Zeonis1
+-pw = userzeonis
 
 ## ToDo
  
 This is the list of user story that we didn't dev.
 
-- ...
+- Saisons ans statisics
 
 
 ## Authors

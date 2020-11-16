@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Player;
 use App\Form\PlayerType;
+use App\Repository\ClubRepository;
 use App\Repository\PlayerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,10 +52,11 @@ class PlayerController extends AbstractController
     /**
      * @Route("/{id}", name="player_show", methods={"GET"})
      */
-    public function show(Player $player): Response
+    public function show(Player $player, ClubRepository $clubRepository): Response
     {
         return $this->render('player/show.html.twig', [
             'player' => $player,
+            'clubs' => $clubRepository,
         ]);
     }
 
